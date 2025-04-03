@@ -156,6 +156,8 @@ class BufferPoolManager {
   /** @brief A pointer to the disk scheduler. Shared with the page guards for flushing. */
   std::shared_ptr<DiskScheduler> disk_scheduler_;
 
+  std::unordered_map<frame_id_t, page_id_t> frame_page_mapping_;
+
   /**
    * @brief A pointer to the log manager.
    *
@@ -172,5 +174,7 @@ class BufferPoolManager {
    * stored inside of it. Additionally, you may also want to implement a helper function that returns either a shared
    * pointer to a `FrameHeader` that already has a page's data stored inside of it, or an index to said `FrameHeader`.
    */
+
+  auto GetFreeFrameHeader() -> std::optional<std::shared_ptr<FrameHeader>>;
 };
 }  // namespace bustub
